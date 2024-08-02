@@ -1,0 +1,33 @@
+{% load static %}
+<html lang="en">
+
+  {% include 'head.html' %}
+
+  <body id="body">
+    <span class="scrolltop" id="scroll-top" onclick="scrollToTop()">&uarr;</span>
+
+    {% block overlay %}
+    {% endblock overlay %}
+
+    {% include 'nav.html' %}
+
+    <div class="pry_container main_container">
+
+      {% include 'notify.html' %}
+
+      {% block content %}
+      {% endblock content %}
+
+    </div>
+
+
+
+    {% include 'footer.html' %}
+
+    <script src="{% static '/js/core.js' %}"></script>
+    {% block js %}
+
+    {% endblock js %}
+  </body>
+
+</html>

@@ -1,0 +1,97 @@
+{% load static %}
+<nav class="navbar_container">
+    <div class="flex_center_btw navbar">
+
+        <div class="logo_home">
+            <a href="{% url 'blog:index' %}" class="logo_link">Logo</a>
+            <a href="{% url 'blog:index' %}" class="home_link">Blog</a>
+        </div>
+
+        <ul class="nav_links_ul">
+            <li class="nav_li">
+                <a href="{% url 'blog:index' %}" class="nav_links {% if home_active %} nav_active {% endif %}">Home</a>
+            </li>
+            <li class="nav_li">
+                <a href="{% url 'blog:posts' %}" class="nav_links {% if post_active %} nav_active {% endif %}">Posts</a>
+            </li>
+            <li class="nav_li">
+                <a href="{% url 'blog:all-categories' %}"
+                    class="nav_links {% if tags_active %} nav_active {% endif %}">Tags</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav_li">
+                <a href="{% url 'blog:create-post' %}" class="nav_links {% if add_active %} nav_active {% endif %}">Add
+                    Post</a>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="nav_links_ul flex_center_btw">
+            <li class="nav_li">
+                <a href="{%  url 'contact-us' %}"
+                    class="nav_links {% if contact_active %} nav_active {% endif %}">Contact</a>
+            </li>
+            <li class="nav_li">
+                <form action="{%  url 'blog:search-posts' %}" method="GET" class="flex-center search-form">
+                    {{search_form.search}}
+                    <button type="submit">
+                        <img src="{% static '/img/icons/icons8-search-30.png' %}" alt="" srcset="" class="logo">
+                    </button>
+                </form>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav_li">
+                <a href="{% url 'profile' %}"
+                    class="nav_links {% if profile_active %} nav_active {% endif %}">Profile({{user}})</a>
+            </li>
+            {% endif %}
+            <li class="nav_li">
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="auth_link">Logout</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="auth_link">Sign in</a>
+                {% endif %}
+            </li>
+        </ul>
+
+        <!-- Mobile sidebar -->
+        <div class="mobile_nav">
+            <ul class="mobile_ul">
+                <li class="mobile_nav_li"><a href="{% url 'blog:index' %}"
+                        class="mobile_links {% if home_active %} nav_active {% endif %}">Home</a></li>
+                <li class="mobile_nav_li"><a href="{% url 'blog:posts' %}"
+                        class="mobile_links {% if post_active %} nav_active {% endif %}">Posts</a></li>
+                <li class="mobile_nav_li"><a href="{% url 'blog:create-post' %}"
+                        class="mobile_links {% if add_active %} nav_active {% endif %}">Add Posts</a></li>
+                <li class="mobile_nav_li"><a href="{% url 'blog:all-categories' %}"
+                        class="mobile_links {% if tags_active %} nav_active {% endif %}">Categories</a></li>
+                <li class="mobile_nav_li"><a href="" class="mobile_links">About Us</a></li>
+                <li class="mobile_nav_li"><a href="{% url 'contact-us' %}"
+                        class="mobile_links {% if contact_active %} nav_active {% endif %}">Contact Us</a></li>
+                {% if user.is_authenticated %}
+                <li class="mobile_nav_li"><a href="{% url 'profile' %}" class="mobile_links">Account ({{user}})</a></li>
+                <li class="nav_li">
+                    <a class="mobile_links" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="mobile_nav_li">
+                    <a class="mobile_links" href="{% url 'login' %}">Sign In</a>
+                </li>
+                {% endif %}
+                <li>
+                    <form action="{% url 'blog:search-posts' %}" method="GET" class=" search-form mobile_form">
+                        {{search_form.search}}
+                        <button type="submit">
+                            <img src="{% static '/img/icons/icons8-search-30.png' %}" alt="" srcset="" class="logo">
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav_toggle" onclick="toggle_sidebar()">
+            <img src="{% static 'img/icons/icons8-menu-bar-64.png' %}" alt="" srcset="" class="cover_center">
+        </div>
+
+    </div>
+</nav>

@@ -1,0 +1,50 @@
+.postform-container {
+  min-height: 10rem; }
+  .postform-container .form-group {
+    overflow-x: hidden;
+    padding: 0.4rem 0; }
+    .postform-container .form-group label {
+      display: inline-block;
+      cursor: pointer; }
+    .postform-container .form-group input[type='text'],
+    .postform-container .form-group textarea {
+      display: block;
+      width: 100%;
+      border-radius: 5px;
+      padding: 0.5rem 0.3rem;
+      border: 1px solid rgba(138, 137, 137, 0.5);
+      background-color: white; }
+    .postform-container .form-group input[type='submit'] {
+      display: block;
+      width: 100%;
+      padding: 0.6rem;
+      text-align: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+      border-radius: 4px;
+      border: none;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      background-color: #1a73e8; }
+      .postform-container .form-group input[type='submit']:hover {
+        background-color: #1c5aaa; }
+  .postform-container .image-div a {
+    width: 100%; }
+  .postform-container .checkme {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap; }
+  .postform-container .checkme div {
+    margin-right: 1rem;
+    padding: 0.15rem; }
+    .postform-container .checkme div label {
+      display: flex;
+      align-items: center;
+      cursor: pointer; }
+      .postform-container .checkme div label input {
+        margin-right: 0.3rem; }
+  .postform-container .validate-checkbox {
+    display: none; }
+  .postform-container .errors {
+    color: red;
+    font-size: 0.8rem; }

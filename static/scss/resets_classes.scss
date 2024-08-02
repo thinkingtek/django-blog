@@ -1,0 +1,147 @@
+@import "variables";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    // font-family: opensan-reg;
+    background-color: $body-bg-clr;
+    scroll-behavior: smooth;
+    position: relative;
+    overflow: auto;
+    transition: 0.2s;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.pry_container {
+    width: 100%;
+    max-width: $pry-width;
+    margin: 0 auto;
+    padding: 0.6rem;
+
+}
+
+.flex_center_btw {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cover_center {
+    object-fit: cover;
+    object-position: center center;
+}
+
+// pagination
+.paginators {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+
+    a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 0.25rem 0.3rem;
+        color: white;
+        background-color: $sec-color;
+        border-radius: 5px;
+        margin-right: 0.5rem;
+        border: 2px solid $sec-color;
+
+        &:hover {
+            color: $sec-color;
+            background-color: transparent;
+        }
+
+        &:last-child {
+            margin-right: none;
+        }
+    }
+
+    .current-page {
+        background-color: $pry-color;
+        border-color: $pry-color;
+    }
+
+    .last-page {
+        background-color: red;
+        border-color: red;
+    }
+}
+
+// notification styles
+.alert {
+    position: relative;
+    padding: 0.3rem;
+    border-radius: 5px;
+    border: 0.4px solid;
+    margin: 0.3rem 0;
+
+}
+
+.message {
+    padding: 0.4rem 0.4rem;
+    margin-right: 0.8rem;
+    text-align: justify;
+    font-size: 0.95rem;
+
+}
+
+.toggle-btn {
+    position: absolute;
+    font-size: 0.8rem;
+    color: rgb(230, 78, 103);
+    top: 25%;
+    right: 0.1rem;
+    padding: 0.2rem 0.3rem;
+    border-radius: 50%;
+    font-weight: bolder;
+    transition: 0.2s ease-out;
+
+    &:hover {
+        cursor: pointer;
+        font-size: 0.95rem;
+        color: red;
+    }
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+// Remove alert msgs 
+.remove_alert {
+    display: none;
+}

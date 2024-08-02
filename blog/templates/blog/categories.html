@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h3 class="header_text">All Categories</h3>
+
+<section class="post_details_aside categories">
+    <div class="all_categories">
+        {% for cat in all_categories %}
+        <a href="{% url 'blog:category-posts' cat.categories__name %}" class="categories_links">
+            <span>{{cat.categories__name|title}}</span>
+            <span>({{cat.categories__name__count}})</span>
+        </a>
+        {% empty %}
+        <h5>No categories</h5>
+        {% endfor %}
+    </div>
+    <aside class="aside">
+        <section class="add_on">
+            <img src="{% static 'img/logo/Amazon-logo.png' %}" alt="" srcset="">
+        </section>
+        <section class="latest_posts">
+            <h4>Latest Posts</h4>
+            {% for post in latest_posts %}
+            <div class="posts">
+                <div class="img_container">
+                    <img src="{{post.image.url}}" alt="" srcset="">
+                </div>
+                <div class="latest_post_details">
+                    <a href="{{post.get_absolute_url}}" class="post_title">{{post.title|title|truncatewords:8}}</a>
+                    <span class="post_timestamp">{{post.date_posted|date:"M j, Y"}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        <section class="social_networks">
+            <h4 class="social_label">Social Networks</h4>
+            <div class="handles fb">
+                <div class="img_counts">
+                    <img src="{% static 'img/icons/icons8-facebook-48.png' %}" alt="" class="s_logo">
+                    <p class="s_counts">293 Likes</p>
+                </div>
+                <div>
+                    <a href="" class="s_links">Like our page</a>
+                </div>
+            </div>
+            <div class="handles tw">
+                <div class="img_counts">
+                    <img src="{% static 'img/icons/icons8-twitter-48.png' %}" alt="" class="s_logo">
+                    <p class="s_counts">293 Followers</p>
+                </div>
+                <div>
+                    <a href="" class="s_links">Follow Us</a>
+                </div>
+            </div>
+            <div class="handles yt">
+                <div class="img_counts">
+                    <img src="{% static 'img/icons/icons8-youtube-48.png' %}" alt="" class="s_logo">
+                    <p class="s_counts">293 Subscribers</p>
+                </div>
+                <div>
+                    <a href="" class="s_links">Subscribe</a>
+                </div>
+            </div>
+        </section>
+    </aside>
+</section>
+
+{% endblock content %}

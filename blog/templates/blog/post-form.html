@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h3 class="header_text">{{view_name}}</h3>
+
+<div class="postform-container">
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group image-div">
+      {{form.image.label_tag}}
+      {{form.image}}
+    </div>
+    <div class="form-checkbox">
+      {{form.categories.label_tag}}
+      {{form.categories|capfirst}}
+      <p class="errors validate-checkbox">You can only select two categories for a post</p>
+      {%  for error in form.categories.errors %}
+      <p class="errors">{{error}}</p>
+      {%  endfor  %}
+    </div>
+
+    <div class="form-group">
+      {{form.title.label_tag}}
+      {{form.title}}
+      {%  for error in form.title.errors %}
+      <p class="errors">{{error}}</p>
+      {%  endfor  %}
+    </div>
+    <div class="form-group">
+      {{form.slug.label_tag}}
+      {{form.slug}}
+      {%  for error in form.slug.errors %}
+      <p class="errors">{{error}}</p>
+      {%  endfor  %}
+    </div>
+    <div class="form-group">
+      {{form.media}}
+      {{form.content.label_tag}}
+      {{form.content}}
+    </div>
+    <div class="form-group">
+      <input type="submit" value="{{post_submit}}">
+    </div>
+  </form>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static '/js/post-form.js' %}"></script>
+{% endblock js %}

@@ -1,0 +1,14 @@
+{% extends 'form_base.html' %}
+
+{% block form %}
+
+<h2>Email sent</h2>
+    <div class="form-group">
+        <p>Your account has been created successfully and activation link sent to your Email Address</p>
+</div>
+  <div class="have-account">
+    <a  href="{% url 'login' %}">Login</a>
+    <a  href="{% url 'signin' %}">Signup</a>
+    <a class="home" href="{% url 'blog:index' %}">Home</a>
+  </div>
+{% endblock form %}

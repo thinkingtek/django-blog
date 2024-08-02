@@ -1,0 +1,144 @@
+body {
+  background-color: #f3f3f3; }
+
+main {
+  padding: 1.3rem;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden; }
+  main .error-container {
+    border: 1px solid red;
+    border-radius: 4px;
+    padding: 0.4rem;
+    margin-top: 0.3rem; }
+    main .error-container h5 {
+      color: red;
+      font-weight: lighter;
+      font-size: 0.85rem;
+      text-align: justify; }
+  main .form-container {
+    width: 100%;
+    position: relative;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 0.8rem 1.3rem;
+    border-radius: 7px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3); }
+    main .form-container h2 {
+      text-align: center;
+      padding-bottom: 0.4rem;
+      font-size: 1.2rem;
+      font-family: "poppins-regular"; }
+    main .form-container .showpass {
+      text-align: left; }
+      main .form-container .showpass input {
+        display: inline; }
+    main .form-container .error {
+      font-size: 0.87rem;
+      color: red; }
+    main .form-container .form-group {
+      padding-bottom: 0.5rem; }
+      main .form-container .form-group .delete {
+        background-color: red; }
+      main .form-container .form-group label {
+        display: inline-block;
+        font-size: 0.91rem;
+        padding-bottom: 0.2rem;
+        cursor: pointer;
+        color: #413c3c;
+        font-weight: 500; }
+      main .form-container .form-group .help-text {
+        line-height: 1.05rem;
+        font-size: 0.8rem; }
+      main .form-container .form-group input {
+        display: block;
+        width: 100%;
+        padding: 0.4rem 0.5rem;
+        margin-bottom: 0.2rem;
+        border-radius: 3.5px;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        outline: none;
+        border: 1px solid rgba(112, 112, 112, 0.5); }
+        main .form-container .form-group input:focus {
+          border: 1px solid rgba(135, 206, 235, 0.5); }
+      main .form-container .form-group input[type="submit"] {
+        cursor: pointer;
+        color: white;
+        border: none;
+        outline: none;
+        font-family: "roboto-light";
+        font-size: 1.05rem;
+        background-color: #1a73e8; }
+        main .form-container .form-group input[type="submit"]:hover {
+          background-color: #1c5aaa; }
+      main .form-container .form-group ul {
+        list-style: none; }
+        main .form-container .form-group ul li {
+          font-size: 0.8rem;
+          line-height: 1.05rem; }
+      main .form-container .form-group p {
+        font-size: 0.9rem; }
+    main .form-container .form-group:last-child {
+      padding: 0.5rem 0; }
+    main .form-container .remember-password {
+      display: flex;
+      align-items: center; }
+      main .form-container .remember-password label {
+        font-size: 0.8rem;
+        margin-left: 0.3rem;
+        cursor: pointer; }
+      main .form-container .remember-password input {
+        cursor: pointer; }
+  main .eyepass {
+    position: relative; }
+    main .eyepass .eye {
+      position: absolute;
+      right: 0.5rem;
+      top: 1.8rem;
+      width: 0.81rem;
+      cursor: pointer; }
+    main .eyepass .eye-close {
+      display: none;
+      background: transparent; }
+    main .eyepass #hidepass {
+      visibility: hidden; }
+    main .eyepass #showpass {
+      visibility: visible; }
+    main .eyepass .show {
+      visibility: visible; }
+    main .eyepass .hide {
+      visibility: hidden; }
+  main .have-account {
+    display: flex;
+    align-items: center; }
+    main .have-account p {
+      margin-right: 0.3rem;
+      font-size: 0.9rem; }
+    main .have-account a {
+      display: inline-block;
+      background-color: lightseagreen;
+      text-decoration: none;
+      color: white;
+      font-size: 0.86rem;
+      padding: 0.35rem;
+      font-weight: 505;
+      margin-right: 0.3rem;
+      border-radius: 3px;
+      border: 1.5px solid lightseagreen;
+      transition: 0.3s ease-out; }
+      main .have-account a:hover {
+        background-color: transparent;
+        color: lightseagreen; }
+      main .have-account a:last-child {
+        margin: 0; }
+    main .have-account a.home {
+      background-color: transparent;
+      color: black; }
+      main .have-account a.home:hover {
+        background-color: lightseagreen;
+        color: white; }

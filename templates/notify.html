@@ -1,0 +1,10 @@
+{% if messages %}
+{% for message in messages %}
+<div class="message-alert alert-{{message.tags}} alert">
+  <div class="toggle-btn alert-{{message.tags}}" onclick="removeAlert()">X</div>
+  <div class="message">
+    {{message}}
+  </div>
+</div>
+{% endfor %}
+{% endif %}

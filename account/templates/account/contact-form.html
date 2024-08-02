@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h3 class="header_text">Contact Us</h3>
+
+<div class="contact_form_container">
+    <h4>Get in touch</h4>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form_group grids">
+            {{form.first_name}}
+            {{form.last_name}}
+        </div>
+        <div class="form_group grids">
+            {{form.email}}
+            {{form.subject}}
+        </div>
+        <div class="form_group textarea">
+            {{form.message}}
+        </div>
+        <button type="submit" class="contact_btn">Send Message</button>
+    </form>
+</div>
+
+{% endblock content %}

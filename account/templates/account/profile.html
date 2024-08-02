@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block overlay %}
+<div class="overlay_container" id="overlay-container">
+  <div class="overlay">
+    <div class="rvmbtn" onclick="rvmOverlay()">X</div>
+    <p>Are you sure you want to delete your Account <span>"{{user.email}}" ?</span></p><a
+      href="{% url 'deactivate-user' %}" class="delbtn">Delete</a>
+  </div>
+</div>
+{% endblock overlay %}
+
+{% block content %}
+
+<section class="profile_user_details">
+  <div class="profile_pic_container">
+    {% if user.profile.image %}
+    <img src="{{user.profile.image.url}}" alt="user profile pic" class="profile_img" srcset="">
+    {% else %}
+    <img src="" alt="user profile pic" class="profile_img" srcset="">
+    {% endif %}
+  </div>
+  <div class="username_email">
+    <h3>{{username}} </h3>
+  </div>
+</section>
+<h3 class="header_text">{{user.email}}</h3>
+<a class="profile_link fav_post" href="{% url 'blog:fovourite-posts' %}"> Favourite posts</a>
+<a class="profile_link fav_post" href="{% url 'blog:user-posts' user.username %}"> My posts</a>
+
+
+<div class="profile_form_container">
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      {{u_form.username.label_tag}}
+      {{u_form.username}}
+      <p class="help-text">{{u_form.username.help_text}}</p>
+      {% if u_form.username.errors %}
+      {% for errors in u_form.username.errors %}
+      <p class="error">{{errors}}</p>
+      {% endfor %}
+      {% endif %}
+    </div>
+    <div class="form-group">
+      {{u_form.email.label_tag}}
+      {{u_form.email}}
+      <p class="help-text">{{u_form.email.help_text}}</p>
+      {% for errors in u_form.email.errors %}
+      <p class="error">{{errors}}</p>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{p_form.image.label_tag}}
+      {{p_form.image}}
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Update" />
+    </div>
+  </form>
+</div>
+
+<div>
+  <a href="{% url 'password-change' %}" class="profile_link">Change password</a>
+  <span class="profile_link delete_account" onclick="deletePost()">Delete account</>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static '/js/delete-post.js' %}"></script>
+{% endblock js %}

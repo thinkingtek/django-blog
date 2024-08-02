@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block overlay %}
+<div class="overlay_container" id="overlay-container">
+    <div class="overlay">
+        <div class="rvmbtn" onclick="rvmOverlay()">X</div>
+        <p>Are you sure you want to delete this post <span>"{{post.title|title}}" ?</span></p><a
+            href="{% url 'blog:post-delete' post.slug %}" class="delbtn">Delete</a>
+    </div>
+</div>
+{% endblock overlay %}
+
+
+{% block content %}
+
+<div class="post_details_aside">
+    <div class="post_details">
+        <div class="post_img_container">
+            <img src="{{post.image.url}}" alt="" srcset="">
+        </div>
+        <div class="cats_favourite">
+            <div class="cats">
+                {% for cat in post.categories.all %}
+                <a href="{% url 'blog:category-posts' cat.name %}" class="">{{cat.name|title}}</a>
+                {% endfor %}
+            </div>
+            <a href="{% url 'blog:favourite-post' post.slug %}" class="add_fav">
+                {% if user in post.favourites.all %}
+                remove favourite
+                {% else %}
+                add to favourite
+                {% endif %}
+            </a>
+        </div>
+        <h3 class="post_title">{{post.title|title}}</h3>
+        <div class="post_user_timestamp">
+            <div>
+                <a href="{% url 'blog:user-posts' post.author.username %}" class="post_author">
+                    <img src="{{post.author.profile.image.url}}" alt="" srcset="">
+                    <span>{{post.author}}</span>
+                </a>
+                <span class="post_timestamp"><img src="{% static 'img/icons/icons8-time-50.png' %}" alt="" srcset=""
+                        class="time_icon"> {{post.date_posted|date:"M j, Y"}}
+                </span>
+                <!-- <span class="views_count">
+                    <img src="" alt="" srcset="">
+                    10
+                </span> -->
+                {% if user == post.author %}
+                <a href="{% url 'blog:post-update' post.slug %}" class="edit_btn">edit</a>
+                <span href="" class="edit_btn del_btn" onclick="deletePost()">delete</span>
+                {% endif %}
+            </div>
+            <div class="like_btn">
+                <a href="{{post.get_like_url}}" class="">
+                    {% if user in post.likes.all %}
+                    unlike
+                    {% else %}
+                    likes
+                    {% endif %}
+                </a>
+                <span>{{post.likes.all.count}}</span>
+            </div>
+        </div>
+        <p class="post_content">
+            {{post.content|safe}}
+        </p>
+
+        <div class="no_comments">
+            <img src="{% static 'img/icons/icons8-comments-24.png' %}" alt="" srcset="">
+            {% if post.get_comments.count < 1 %}
+            <p>No comments on this post</p>
+            {% else %}
+            <p>Comment{{post.get_comments.count|pluralize}} ({{post.get_comments.count}})</p>
+            {% endif %}
+        </div>
+
+        <!-- Comments -->
+        {% for comment in post.get_comments %}
+        <div class="comments_container">
+            <div class="comment_user_timestamp">
+                <span class="comment_username">{{comment.user}}</span>
+                <span class="comment_timestamp">
+                    <img src="{% static 'img/icons/icons8-time-50.png' %}" alt="" srcset="" class="time_icon">
+                    {{comment.timestamp|timesince}} ago
+                </span>
+                {% if comment.user == user %}
+                <a href="{% url 'blog:comment-delete' comment.pk comment.post.slug %}" class="delete_comment">Delete
+                    comment</a>
+                {% endif %}
+            </div>
+            <p class="post_comments">{{comment.content}}</p>
+        </div>
+        {% endfor %}
+
+        {% if post.get_comments.count > 1 %}
+        <a href="{% url 'blog:post-comments' post.slug %}" class="read_more_comment">All comments</a><br>
+        {% endif %}
+
+        <!-- Comment form -->
+        {% if user.is_authenticated %}
+        <h4 class="comment_label">Leave a Comment</h4>
+        <form action="." method="post" class="comment_form">
+            {% csrf_token %}
+            <div class="">
+                {{form.content.label_tag}}
+                {{form.content}}
+            </div>
+            <button type="submit">Comment</button>
+        </form>
+        {% else %}
+        <a href="{% url 'blog:redirect-comment' post.slug %}" class="login_comment">Login to comment</a>
+        {% endif %}
+
+
+    </div>
+    <!-- Aside -->
+    <aside class="aside">
+        <section class="latest_posts">
+            <h4>Latest Posts</h4>
+            {% for post in latest_posts %}
+            <div class="posts">
+                <div class="img_container">
+                    <img src="{{post.image.url}}" alt="" srcset="">
+                </div>
+                <div class="latest_post_details">
+                    <a href="{{post.get_absolute_url}}" class="post_title">{{post.title|title|truncatewords:8}}</a>
+                    <span class="post_timestamp">{{post.date_posted|date:"M j, Y"}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        <section class="add_on">
+            <img src="{% static 'img/logo/Amazon-logo.png' %}" alt="" srcset="">
+        </section>
+        <section class="categories_section">
+            <h4>Categories</h4>
+            <div class="categories_div">
+                {% for cat in categories  %}
+                <a href="{% url 'blog:category-posts' cat.categories__name %}"><span>{{cat.categories__name|title}}</span>
+                    <span>{{cat.categories__name__count}}</span>
+                </a>
+                {% empty %}
+                {% endfor %}
+            </div>
+        </section>
+
+        {% if author_posts.count > 1 %}
+        <section class="authors_posts">
+            <h4>{{post.author.username}} Posts</h4>
+            {% for post in author_posts %}
+            <div class="posts">
+                <div class="img_container">
+                    <img src="{{post.image.url}}" alt="" srcset="">
+                </div>
+                <div class="latest_post_details">
+                    <a href="{{post.get_absolute_url}}" class="post_title">{{post.title|title|truncatewords:8}}</a>
+                    <span class="post_timestamp">{{post.date_posted|date:"M j, Y"}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <section class="social_networks">
+            <h4 class="social_label">Social Networks</h4>
+            <div class="handles fb">
+                <div class="img_counts">
+                    <img src="{% static 'img/icons/icons8-facebook-48.png' %}" alt="" class="s_logo">
+                    <p class="s_counts">293 Likes</p>
+                </div>
+                <div>
+                    <a href="" class="s_links">Like our page</a>
+                </div>
+            </div>
+            <div class="handles tw">
+                <div class="img_counts">
+                    <img src="{% static 'img/icons/icons8-twitter-48.png' %}" alt="" class="s_logo">
+                    <p class="s_counts">293 Followers</p>
+                </div>
+                <div>
+                    <a href="" class="s_links">Follow Us</a>
+                </div>
+            </div>
+            <div class="handles yt">
+                <div class="img_counts">
+                    <img src="{% static 'img/icons/icons8-youtube-48.png' %}" alt="" class="s_logo">
+                    <p class="s_counts">293 Subscribers</p>
+                </div>
+                <div>
+                    <a href="" class="s_links">Subscribe</a>
+                </div>
+            </div>
+        </section>
+    </aside>
+</div>
+
+
+<!-- Similar Posts -->
+{% if similar_posts %}
+<h3 class="header_text">Similar Posts</h3>
+<section class="post_4_column_grid">
+
+    {% for post in similar_posts %}
+    {% include 'blog/post-grids.html' %}
+    {% empty %}
+    {% endfor %}
+
+</section>
+{% endif %}
+
+<!-- ads -->
+<section class="ads">
+    <img src="{% static 'img/logo/Amazon-Ads-summit-2023.jpg' %}" alt="" srcset="">
+</section>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static '/js/delete-post.js' %}"></script>
+{% endblock js %}

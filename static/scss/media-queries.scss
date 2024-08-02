@@ -1,0 +1,67 @@
+// small tabs // 2columns surface duo
+@media screen and (min-width: 530px) {
+    .post_4_column_grid {
+        padding: 0;
+        grid-template-columns: repeat(2, 1fr);
+        // grid-gap: 0.5rem;
+    }
+
+    .sml_grid_2 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact_form_container .form_group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+}
+
+// small tabs // 2columns //iPad mini
+@media screen and (min-width: 660px) {
+
+    // all post grids
+    .post_4_column_grid {
+        grid-template-columns: repeat(3, 1fr);
+        // grid-gap: 0.5rem;
+    }
+
+    // details page and others
+    .post_details_aside {
+        grid-template-columns: 2fr 1fr;
+    }
+
+    // homepage
+    .latest_editors_container {
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .showcase .sml_grid_2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+// ipad air tabs
+@media screen and (min-width: 815px) {
+    .post_4_column_grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    // homepage showcase
+    .showcase {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+@media screen and (min-width: 905px) {
+
+    .mobile_ul,
+    .nav_toggle {
+        display: none;
+    }
+
+    .nav_links_ul {
+        display: flex;
+    }
+
+}

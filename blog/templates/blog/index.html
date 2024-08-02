@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="showcase">
+    <div class="bg_grid"
+        style="background: url({{editors_first.image.url}}); background-size: cover; background-position: center center">
+        <div class="post_container">
+            <div class="cat_container">
+                {% for cat in editors_first.categories.all %}<a href="{% url 'blog:category-posts' cat.name %}">{{cat.name}}</a>
+                {% endfor %}
+            </div>
+            <a href="{{editors_first.get_absolute_url}}" class="post_title">{{editors_first.title|title}}</a>
+            <div class="post_time_user">
+                <a href="" class="post_user">{{editors_first.author}}</a>
+                <span class="post_date">{{editors_first.date_posted|timesince}}</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="sml_grid_2">
+        {% for post in editors_pick %}
+        <div class="sml_grid"
+            style="background: url({{post.image.url}}); background-size: cover; background-position: center center">
+            <div class="post_container">
+                <div class="cat_container">
+                    {% for cat in post.categories.all %}
+                    <a href="">{{cat.name|capfirst}}</a>
+                    {% endfor %}
+                </div>
+                <a href="{{post.get_absolute_url}}" class="post_title">{{post.title|upper}}</a>
+                <div class="post_time_user">
+                    <a href="" class="post_user">{{post.author}}</a>
+                    <span class="post_date">{{post.date_posted|date:"M d Y"}}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="breaking_news">
+    <h4>Breaking news:
+        <a href="">Louise Pabor is biggest programmer of all time</a>
+    </h4>
+</div>
+
+<!-- Trending Posts -->
+<h3 class="header_text">Treading</h3>
+<section class="post_4_column_grid">
+
+    {% for post in trending_posts %}
+    {% include 'blog/post-grids.html' %}
+    {% endfor %}
+
+</section>
+
+<section class="ads">
+    <img src="{% static 'img/logo/Amazon-Ads-summit-2023.jpg' %}" alt="" srcset="">
+</section>
+
+<div class="latest_editors_container">
+    <div class="latest_news">
+        <h3 class="label_text">Latest Posts</h3>
+        <div class="single_grids">
+            {% for post in latest_posts %}
+            <div class="grids">
+                <div class="img_container">
+                    <img src="{{post.image.url}}" alt="post image" srcset="">
+                </div>
+                <div class="post_details">
+                    <a href="{{post.get_absolute_url}}" class="post_title">{{post.title|title}}</a>
+                    <div class="">
+                        <span>{{post.author}}</span>
+                        <span>{{post.date_posted|timesince}} ago</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="editors_pick_social">
+        <h3 class="label_text">Editor Posts</h3>
+        <div class="editors_post">
+            <div class="post_img">
+                <img src="{{editors_first.image.url}}" alt="" srcset="">
+            </div>
+            <div class="post_details">
+                <a href="{{editors_first.get_absolute_url}}" class="post_title">{{editors_first.title|title}}</a>
+                <div class="user_date">
+                    <div class="user">
+                        <p>{{editors_first.author}}</p>
+                    </div>
+                    <div class="date">{{editors_first.date_posted}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="little_grids_container">
+            {% for post in latest_posts %}
+            <div class="lt_grids">
+                <div class="img_container">
+                    <img src="{{post.image.url}}" alt="" srcset="">
+                </div>
+                <div class="post_details">
+                    <a href="{{post.get_absolute_url}}" class="post_title">{{post.title|title}}</a>
+                    <div class="user_timestamp">
+                        <span>{{post.author}} |</span>
+                        <span>{{post.date_posted|timesince}} ago</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

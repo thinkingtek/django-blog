@@ -1,0 +1,21 @@
+<div class="grids">
+    <div class="img_div">
+        <img src="{{post.image.url}}" alt="" srcset="">
+    </div>
+    <div class="post_details">
+        <div class="post_cats">
+            {% for cat in post.categories.all %}
+            <a href="{% url 'blog:category-posts' cat.name %}">{{cat.name|capfirst}}</a>
+            {% endfor %}
+
+        </div>
+        <a href="{{post.get_absolute_url}}" class="post_title">{{post.title|title}}</a>
+        <div class="post_author">
+            <img src="{{post.author.profile.image.url}}" alt="" class="cover_center author_img">
+            <div>
+                <a href="{% url 'blog:user-posts' post.author.username %}" class="author">{{post.author}}</a>
+                <p class="post_timestamp">{{post.date_posted|date:"M d, Y"}}</p>
+            </div>
+        </div>
+    </div>
+</div>

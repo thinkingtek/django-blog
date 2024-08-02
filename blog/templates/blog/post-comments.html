@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h3 class="header_text">{{view_name|truncatewords:11}}</h3>
+
+<section class="post_details_aside categories">
+    <div class="post_details all_comments">
+        {% for comment in post_comments %}
+        <div class="comments_container">
+            <div class="comment_user_timestamp">
+                <span class="comment_username">{{comment.user}}</span>
+                <span class="comment_timestamp">
+                    <img src="{% static 'img/icons/icons8-time-50.png' %}" alt="" srcset="" class="time_icon">
+                    {{comment.timestamp|timesince}} ago
+                </span>
+                {% if comment.user == user %}
+                <a href="{% url 'blog:comment-delete' comment.pk comment.post.slug %}" class="delete_comment">Delete
+                    comment</a>
+                {% endif %}
+            </div>
+            <p class="post_comments">{{comment.content}}</p>
+        </div>
+        {% empty %}
+        <h5>No comments</h5>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+        <h4 class="comment_label">Leave a Comment</h4>
+        <form action="." method="post" class="comment_form">
+            {% csrf_token %}
+            <div class="">
+                {{form.content.label_tag}}
+                {{form.content}}
+            </div>
+            <button type="submit">
+                {% if user.is_authenticated %}
+                Comment
+                {% else %}
+                Login to Comment
+                {% endif %}
+            </button>
+        </form>
+        {% else %}
+        <a href="{% url 'blog:redirect-comment-page' post.slug %}" class="login_comment">Login to comment</a>
+        {% endif %}
+
+        <a href="{{post.get_absolute_url}}" class="read_more_comment back_page">&laquo; Back</a>
+
+        {% if is_paginated %}
+        <div class="paginators">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{page_obj.previous_page_number}}">&laquo;</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a class="current-page" href="?page={{num}}">{{num}}</a>
+
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{num}}">{{num}}</a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">&raquo;</a>
+            <a class="last-page" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+            {% endif %}
+
+        </div>
+        {% endif %}
+    </div>
+
+    <aside class="aside">
+        <section class="add_on">
+            <img src="{% static 'img/logo/Amazon-logo.png' %}" alt="" srcset="">
+        </section>
+        <section class="latest_posts">
+            <h4>Latest Posts</h4>
+            {% for post in latest_posts %}
+            <div class="posts">
+                <div class="img_container">
+                    <img src="{{post.image.url}}" alt="" srcset="">
+                </div>
+                <div class="latest_post_details">
+                    <a href="{{post.get_absolute_url}}" class="post_title">{{post.title|title|truncatewords:8}}</a>
+                    <span class="post_timestamp">{{post.date_posted|date:"M j, Y"}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        <section class="social_networks">
+            <h4 class="social_label">Social Networks</h4>
+            <div class="handles fb">
+                <div class="img_counts">
+                    <img src="{% static 'img/icons/icons8-facebook-48.png' %}" alt="" class="s_logo">
+                    <p class="s_counts">293 Likes</p>
+                </div>
+                <div>
+                    <a href="" class="s_links">Like our page</a>
+                </div>
+            </div>
+            <div class="handles tw">
+                <div class="img_counts">
+                    <img src="{% static 'img/icons/icons8-twitter-48.png' %}" alt="" class="s_logo">
+                    <p class="s_counts">293 Followers</p>
+                </div>
+                <div>
+                    <a href="" class="s_links">Follow Us</a>
+                </div>
+            </div>
+            <div class="handles yt">
+                <div class="img_counts">
+                    <img src="{% static 'img/icons/icons8-youtube-48.png' %}" alt="" class="s_logo">
+                    <p class="s_counts">293 Subscribers</p>
+                </div>
+                <div>
+                    <a href="" class="s_links">Subscribe</a>
+                </div>
+            </div>
+        </section>
+    </aside>
+</section>
+
+{% endblock content %}
